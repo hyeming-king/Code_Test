@@ -51,3 +51,25 @@ ORDER BY c.company_code
 - 가능한 많은 정보를 얻을 수 있는 테이블 위주로 문제를 접근
 
 - employee 테이블에서 회사번호에 따른 리드, 시니어 매니저, 매니저, 직원 수를 얻은 후에, company 테이블과 조인하는 형식을 사용하였다.
+
+=> 👉🏻 간과한 문제점!! employee의 부하직원이 없을 수도 있는 것을 생각하지 못함!!
+
+```sql
+SELECT c.company_code
+     , c.founder
+     , COUNT(lm.lead_manager_code)
+     , COUNT(sm.senior_manager_code)
+     , COUNT(m.manager_code)
+     , COUNT(e.employee_code)
+FROM c.company
+    INNER JOIN Lead_Manager lm
+    ON c.company_code = lm.company_code
+    INNER JOIN Senior_Manager sm
+    ON lm.company_code = sm.company_code
+    INNER JOIN Manager m
+    ON sm.company_code = m.company_code
+    INNER JOIN Employee e
+    ON m.company_code = e.company_code
+GROUP BY c.company_code, c.founder
+ORDER BY c.company_code
+```
