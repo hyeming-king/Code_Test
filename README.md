@@ -6,5 +6,7 @@
 
 
 ## SQL 
-- hackerrank의 문제들을 풀어봅니다.
+- hackerrank
+- LeetCode
 
+문제들을 풀어보고 정리합니다.
